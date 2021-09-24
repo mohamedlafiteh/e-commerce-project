@@ -1,0 +1,34 @@
+.container {
+  padding: 16px;
+  background-color: white;
+}
+.user-input {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+.user-input {
+  background-color: #ddd;
+  outline: none;
+}
+
+.home-header {
+  background-color: #2c3e50;
+  height: 90px;
+  padding: 30px;
+  color: white;
+  margin-bottom: 2rem;
+}
+.home-title {
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.gender {
+  justify-content: space-between;
+  margin-bottom: 20px;
+}

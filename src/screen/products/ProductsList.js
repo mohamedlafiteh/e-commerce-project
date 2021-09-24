@@ -4,9 +4,8 @@ import "./ProductsList.css";
 import { Link } from "react-router-dom";
 
 const productsList = (props) => {
-  console.log(props.products);
   return (
-    <div className="container">
+    <div className="container" style={{ width: "60%" }}>
       <div className="row">
         {props.products.map((product) => {
           return (
@@ -23,9 +22,9 @@ const productsList = (props) => {
                 />
                 <div className="product__text">
                   <h5 className="product__title">
-                    {product.title.length < 20
+                    {product.title.length < 10
                       ? `${product.title}`
-                      : `${product.title.substring(0, 25)}...`}
+                      : `${product.title.substring(0, 15)}...`}
                   </h5>
                   <p className="product__subtitle">
                     Price: <span>{product.price}</span>

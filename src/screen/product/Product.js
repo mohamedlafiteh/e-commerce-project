@@ -7,21 +7,38 @@ class Product extends React.Component {
   state = {
     activeProduct: [],
   };
-  componentDidMount = async () => {
-    const id = this.props.match.params.id;
-    const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+  // componentDidMount = async () => {
+  //   const id = this.props.match.params.id;
 
-    const data = await res.json();
-    this.setState({ activeProduct: data });
-    console.log(this.state.activeProduct);
-  };
+  //   const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+
+  //   const data = await res.json();
+  //   this.setState({ activeProduct: data });
+  // };
+
+  componentDidMount() {
+    const id = this.props.match.params.id;
+    // const promiseCall = new Promise((resolve, reject) => {
+    const fetchData = fetch(`https://fakestoreapi.com/products/${id}`)
+      .then((response) => response.json())
+      .then((res) => {
+        this.setState({
+          activeProduct: res,
+        });
+        // return resolve();
+      })
+      .catch((err) => {
+        // reject();
+      });
+    // });
+  }
   render() {
     const product = this.state.activeProduct;
     return (
       <div className="container">
         <header className="home-header">
           <h1 className="home-title" style={{ textAlign: "center" }}>
-            Eco project
+            Product view
           </h1>
         </header>
         {this.state.activeProduct.length !== 0 && (

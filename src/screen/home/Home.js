@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import ProductsList from "../products/ProductsList";
+import SearchProduct from "../search/SearchProduct";
+import Header from "../../components/header/Header";
 import "./Home.css";
 
 export default class Home extends Component {
@@ -7,6 +9,7 @@ export default class Home extends Component {
     super(props);
     this.state = {
       products: [],
+      title: "",
       error: null,
     };
   }
@@ -27,13 +30,21 @@ export default class Home extends Component {
       });
     }
   };
+  searchProduct = (inputTitle) => {
+    const productSearchResult = this.state.products.filter((title) => {
+      return title.title.toLowerCase().includes(inputTitle.toLowerCase());
+    });
+
+    this.setState({
+      products: productSearchResult,
+    });
+  };
 
   render() {
     return (
       <div className="home">
-        <header className="home-header">
-          <h1 className="home-title">Eco project</h1>
-        </header>
+        <Header />
+        <SearchProduct searchProduct={this.searchProduct} />
         <ProductsList products={this.state.products} />
       </div>
     );
