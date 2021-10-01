@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, PureComponent } from "react";
 import { connect } from "react-redux";
 import ProductsList from "../products/ProductsList";
 import SearchProduct from "../search/SearchProduct";
@@ -6,7 +6,7 @@ import Header from "../../components/header/Header";
 import { fetchProducts } from "../../store/actions/productAction";
 import "./Home.css";
 
-class Home extends Component {
+class Home extends PureComponent {
   componentDidMount() {
     this.props.dispatch(fetchProducts());
   }

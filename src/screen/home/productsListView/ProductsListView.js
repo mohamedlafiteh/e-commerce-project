@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function ProductsListView(props) {
+function ProductsListView(props) {
   return (
     <div className="container" style={{ width: "60%" }}>
       <div className="row">
@@ -46,3 +46,5 @@ export default function ProductsListView(props) {
     </div>
   );
 }
+
+export default React.memo(ProductsListView);
