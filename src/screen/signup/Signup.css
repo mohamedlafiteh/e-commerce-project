@@ -32,3 +32,16 @@
   justify-content: space-between;
   margin-bottom: 20px;
 }
+
+.s {
+  border-radius: 4px;
+  border: #2980b9 1px solid;
+  background: #3498db;
+  color: #f1f1f1;
+  font-weight: 800;
+  font-size: 0.8em;
+}
+.err {
+  color: red;
+  margin-bottom: 10px;
+}

@@ -9,7 +9,7 @@ export default function Header() {
         <a href="#search">Home</a>
       </Link>
       <div class="topnav-right">
-        <Link to="">
+        <Link to="/signin">
           {" "}
           <a href="#search">Sign in</a>
         </Link>
@@ -21,15 +21,15 @@ export default function Header() {
     </div>
   );
 }
-const headerStyle = {
-  background: "#333",
-  color: "#fff",
-  textAlign: "center",
-  padding: "10px",
-  marginBottom: "40px",
-};
+// const headerStyle = {
+//   background: "#333",
+//   color: "#fff",
+//   textAlign: "center",
+//   padding: "10px",
+//   marginBottom: "40px",
+// };
 
-const linkStyle = {
-  color: "#fff",
-  textDecoration: "none",
-};
+// const linkStyle = {
+//   color: "#fff",
+//   textDecoration: "none",
+// };

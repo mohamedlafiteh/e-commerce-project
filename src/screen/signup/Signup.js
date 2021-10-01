@@ -1,103 +1,63 @@
 import React from "react";
+import { connect } from "react-redux";
+import Header from "../../components/header/Header";
+
+import { validateAllFormFields } from "./Validator";
+import { createUser } from "../../store/actions/userAction";
+import { stateFields, stateFieldsErrors } from "../constant/stateFields";
+import { resetForm } from "./resetForm";
 import "./Signup.css";
 
-import { emailValidate, nameValidate, passwordValidate } from "./Validator";
-
-export default class Signup extends React.Component {
+class Signup extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      formData: {
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        passwordConfirmation: "",
-        gender: "",
-        interests: "",
-      },
-      formErrorData: {
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        passwordConfirmation: "",
-        gender: "",
-        interests: "",
-      },
+      stateFields,
+      stateFieldsErrors,
     };
   }
   handleChange = (event) => {
     this.setState((prev) => {
       return {
-        formData: {
-          ...prev.formData,
-          [event.target.name]: event.target.value,
+        stateFields: {
+          formData: {
+            ...prev.stateFields.formData,
+            [event.target.name]: event.target.value,
+          },
         },
       };
     });
   };
 
   handleSubmit = (e) => {
-    const {
-      formData: { firstName },
-      formData: { lastName },
-      formData: { email },
-      formData: { password },
-      formData: { passwordConfirmation },
-    } = this.state;
+    const { formData } = this.state.stateFields;
 
-    e.preventDefault();
-    let errorMessage = {};
-
-    if (!nameValidate(firstName)) {
-      errorMessage.firstName = "First name required";
-    }
-
-    if (!nameValidate(lastName)) {
-      errorMessage.lastName = "Last name required";
-    }
-    if (!emailValidate(email)) {
-      errorMessage.email = "The email format is incorrect";
-    }
-
-    if (!passwordValidate(password)) {
-      errorMessage.password = "The password must have at least 8 characters";
-    }
-
-    if (password !== passwordConfirmation) {
-      errorMessage.passwordConfirmation = "The passwords don't match";
-    }
-
-    if (errorMessage && Object.keys(errorMessage).length > 0) {
+    if (
+      validateAllFormFields(formData) &&
+      Object.keys(validateAllFormFields(formData)).length > 0
+    ) {
       this.setState({
-        formErrorData: errorMessage,
+        stateFieldsErrors: {
+          formErrorData: validateAllFormFields(formData),
+        },
       });
     } else {
-      this.resetForm();
-      window.location.href = "/";
+      const { formData } = this.state.stateFields;
+      this.props.createUser(formData);
+      this.setState(resetForm());
+
+      // window.location.href = "/signin";
     }
   };
 
-  resetForm = () => {
-    this.setState({
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      passwordConformation: "",
-      gender: "",
-      interests: "",
-    });
-  };
   render() {
-    const { formErrorData } = this.state;
+    const { formData } = this.state.stateFields;
+    const { formErrorData } = this.state.stateFieldsErrors;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <header className="home-header">
-          <h1 className="home-title">Registration form</h1>
-        </header>
+      <>
+        <Header />
+        <h3 style={{ textAlign: "center" }}>Sign up </h3>
         <div class="container" style={{ width: "40%" }}>
           <label for="firsname">
             <b>First Name</b>
@@ -110,9 +70,10 @@ export default class Signup extends React.Component {
             type="text"
             placeholder="First name"
             name="firstName"
+            value={formData.firstName}
           />
           {formErrorData && formErrorData.firstName ? (
-            <span>{formErrorData.firstName}</span>
+            <span className="err">{formErrorData.firstName}</span>
           ) : (
             ""
           )}
@@ -129,9 +90,10 @@ export default class Signup extends React.Component {
             type="text"
             placeholder="Last name"
             name="lastName"
+            value={formData.lastName}
           />
           {formErrorData && formErrorData.lastName ? (
-            <span>{formErrorData.lastName}</span>
+            <span className="err">{formErrorData.lastName}</span>
           ) : (
             ""
           )}
@@ -148,9 +110,10 @@ export default class Signup extends React.Component {
             type="text"
             placeholder="Email"
             name="email"
+            value={formData.email}
           />
           {formErrorData && formErrorData.email ? (
-            <span>{formErrorData.email}</span>
+            <span className="err">{formErrorData.email}</span>
           ) : (
             ""
           )}
@@ -166,9 +129,10 @@ export default class Signup extends React.Component {
             type="password"
             placeholder="Password"
             name="password"
+            value={formData.password}
           />
           {formErrorData && formErrorData.password ? (
-            <span>{formErrorData.password}</span>
+            <span className="err">{formErrorData.password}</span>
           ) : (
             ""
           )}
@@ -184,18 +148,26 @@ export default class Signup extends React.Component {
             type="password"
             placeholder="Password confirmation"
             name="passwordConfirmation"
+            value={formData.passwordConfirmation}
           />
           {formErrorData && formErrorData.passwordConfirmation ? (
-            <span>{formErrorData.passwordConfirmation}</span>
+            <span className="err">{formErrorData.passwordConfirmation}</span>
           ) : (
             ""
           )}
+
           <div className="gender" onChange={this.handleChange}>
-            <input type="radio" value="Male" name="gender" /> Male
-            <input type="radio" value="Female" name="gender" /> Female
-            <input type="radio" value="Other" name="gender" /> Other
+            <input type="radio" value="male" name="gender" /> Male
+            <input type="radio" value="female" name="gender" /> Female
+            <input type="radio" value="other" name="gender" /> Other
           </div>
           <div>
+            {formErrorData && formErrorData.gender ? (
+              <span className="err">{formErrorData.gender}</span>
+            ) : (
+              ""
+            )}
+            <br />
             <label
               style={{ marginBottom: "20px", fontWeight: "bold" }}
               for="interests"
@@ -208,15 +180,33 @@ export default class Signup extends React.Component {
                 style={{ marginBottom: "20px" }}
                 name="interests"
                 id="interests"
-                value={this.state.textAreaValue}
+                value={formData.interests}
                 onChange={this.handleChange}
               />
             </div>
           </div>
-
-          <input style={{ marginBottom: "100px" }} type="submit" />
+          {formErrorData && formErrorData.interests ? (
+            <span className="err">{formErrorData.interests}</span>
+          ) : (
+            ""
+          )}
+          <br />
+          <input
+            onClick={this.handleSubmit}
+            className="s"
+            style={{ marginBottom: "100px" }}
+            type="submit"
+          />
         </div>
-      </form>
+      </>
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    createUser: (user) => dispatch(createUser(user)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Signup);
