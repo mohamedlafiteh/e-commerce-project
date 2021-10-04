@@ -4,32 +4,20 @@ import "./Header.css";
 
 export default function Header() {
   return (
-    <div class="topnav">
+    <div className="topnav">
       <Link to="/">
-        <a href="#search">Home</a>
+        <span className="a-tag">Home</span>
       </Link>
-      <div class="topnav-right">
+      <div className="topnav-right">
         <Link to="/signin">
           {" "}
-          <a href="#search">Sign in</a>
+          <span className="a-tag">Sign in</span>
         </Link>
         <Link to="/signup">
           {" "}
-          <a href="#about">Sign up</a>
+          <span className="a-tag">Sign up</span>
         </Link>
       </div>
     </div>
   );
 }
-// const headerStyle = {
-//   background: "#333",
-//   color: "#fff",
-//   textAlign: "center",
-//   padding: "10px",
-//   marginBottom: "40px",
-// };
-
-// const linkStyle = {
-//   color: "#fff",
-//   textDecoration: "none",
-// };

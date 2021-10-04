@@ -4,7 +4,7 @@ import Header from "../../components/header/Header";
 
 import { validateAllFormFields } from "./Validator";
 import { createUser } from "../../store/actions/userAction";
-import { stateFields, stateFieldsErrors } from "../constant/stateFields";
+import { stateFields } from "../constant/stateFields";
 import { resetForm } from "./resetForm";
 import "./Signup.css";
 
@@ -14,7 +14,7 @@ class Signup extends React.Component {
 
     this.state = {
       stateFields,
-      stateFieldsErrors,
+      stateFieldsErrors: stateFields,
     };
   }
   handleChange = (event) => {
@@ -32,14 +32,11 @@ class Signup extends React.Component {
 
   handleSubmit = (e) => {
     const { formData } = this.state.stateFields;
-
-    if (
-      validateAllFormFields(formData) &&
-      Object.keys(validateAllFormFields(formData)).length > 0
-    ) {
+    const results = validateAllFormFields(formData);
+    if (results && Object.keys(results).length > 0) {
       this.setState({
         stateFieldsErrors: {
-          formErrorData: validateAllFormFields(formData),
+          formData: results,
         },
       });
     } else {
@@ -53,13 +50,13 @@ class Signup extends React.Component {
 
   render() {
     const { formData } = this.state.stateFields;
-    const { formErrorData } = this.state.stateFieldsErrors;
+    const { stateFieldsErrors } = this.state;
     return (
       <>
         <Header />
         <h3 style={{ textAlign: "center" }}>Sign up </h3>
-        <div class="container" style={{ width: "40%" }}>
-          <label for="firsname">
+        <div className="container" style={{ width: "40%" }}>
+          <label htmlFor="firsname">
             <b>First Name</b>
           </label>
           <input
@@ -72,13 +69,11 @@ class Signup extends React.Component {
             name="firstName"
             value={formData.firstName}
           />
-          {formErrorData && formErrorData.firstName ? (
-            <span className="err">{formErrorData.firstName}</span>
-          ) : (
-            ""
+          {stateFieldsErrors.formData.firstName && (
+            <span className="err">{stateFieldsErrors.formData.firstName}</span>
           )}
           <br />
-          <label for="lastname">
+          <label htmlFor="lastname">
             <b>Last Name</b>
           </label>
 
@@ -92,13 +87,11 @@ class Signup extends React.Component {
             name="lastName"
             value={formData.lastName}
           />
-          {formErrorData && formErrorData.lastName ? (
-            <span className="err">{formErrorData.lastName}</span>
-          ) : (
-            ""
+          {stateFieldsErrors.formData.lastName && (
+            <span className="err">{stateFieldsErrors.formData.lastName}</span>
           )}
           <br />
-          <label for="email">
+          <label htmlFor="email">
             <b>Email</b>
           </label>
           <input
@@ -112,13 +105,11 @@ class Signup extends React.Component {
             name="email"
             value={formData.email}
           />
-          {formErrorData && formErrorData.email ? (
-            <span className="err">{formErrorData.email}</span>
-          ) : (
-            ""
+          {stateFieldsErrors.formData.email && (
+            <span className="err">{stateFieldsErrors.formData.email}</span>
           )}
           <br />
-          <label for="password">
+          <label htmlFor="password">
             <b>Password</b>
           </label>
           <input
@@ -131,13 +122,11 @@ class Signup extends React.Component {
             name="password"
             value={formData.password}
           />
-          {formErrorData && formErrorData.password ? (
-            <span className="err">{formErrorData.password}</span>
-          ) : (
-            ""
+          {stateFieldsErrors.formData.password && (
+            <span className="err">{stateFieldsErrors.formData.password}</span>
           )}
           <br />
-          <label for="passwrodconfirmation">
+          <label htmlFor="passwrodconfirmation">
             <b>password Confirmation</b>
           </label>
           <input
@@ -150,27 +139,56 @@ class Signup extends React.Component {
             name="passwordConfirmation"
             value={formData.passwordConfirmation}
           />
-          {formErrorData && formErrorData.passwordConfirmation ? (
-            <span className="err">{formErrorData.passwordConfirmation}</span>
-          ) : (
-            ""
+          {stateFieldsErrors.formData.passwordConfirmation && (
+            <span className="err">
+              {stateFieldsErrors.formData.passwordConfirmation}
+            </span>
           )}
 
-          <div className="gender" onChange={this.handleChange}>
-            <input type="radio" value="male" name="gender" /> Male
-            <input type="radio" value="female" name="gender" /> Female
-            <input type="radio" value="other" name="gender" /> Other
+          <div className="gender">
+            <input
+              onChange={this.handleChange}
+              type="radio"
+              value="male"
+              name="gender"
+              checked={
+                this.state.stateFields.formData.gender === "male" ? true : false
+              }
+            />{" "}
+            Male
+            <input
+              onChange={this.handleChange}
+              type="radio"
+              value="female"
+              name="gender"
+              checked={
+                this.state.stateFields.formData.gender === "female"
+                  ? true
+                  : false
+              }
+            />{" "}
+            Female
+            <input
+              onChange={this.handleChange}
+              type="radio"
+              value="other"
+              name="gender"
+              checked={
+                this.state.stateFields.formData.gender === "other"
+                  ? true
+                  : false
+              }
+            />{" "}
+            Other
           </div>
           <div>
-            {formErrorData && formErrorData.gender ? (
-              <span className="err">{formErrorData.gender}</span>
-            ) : (
-              ""
+            {stateFieldsErrors.formData.gender && (
+              <span className="err">{stateFieldsErrors.formData.gender}</span>
             )}
             <br />
             <label
               style={{ marginBottom: "20px", fontWeight: "bold" }}
-              for="interests"
+              htmlFor="interests"
             >
               Enter your programming experience:{" "}
             </label>
@@ -185,10 +203,8 @@ class Signup extends React.Component {
               />
             </div>
           </div>
-          {formErrorData && formErrorData.interests ? (
-            <span className="err">{formErrorData.interests}</span>
-          ) : (
-            ""
+          {stateFieldsErrors.formData.interests && (
+            <span className="err">{stateFieldsErrors.formData.interests}</span>
           )}
           <br />
           <input

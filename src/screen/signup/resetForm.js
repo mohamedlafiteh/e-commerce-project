@@ -7,7 +7,7 @@ export const resetForm = () => {
         email: "",
         password: "",
         passwordConfirmation: "",
-        gender: "",
+        gender: false,
         interests: "",
       },
     },
