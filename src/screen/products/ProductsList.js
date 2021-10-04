@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ProductsListView from "../home/productsListView/ProductsListView";
+import ProductsListView from "../productsListView/ProductsListView";
 import "./ProductsList.css";
 
 const productsList = (props) => {

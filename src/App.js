@@ -5,6 +5,7 @@ import ErrorPage from "./components/errorPage/ErrorPage";
 import Footer from "./components/footer/Footer";
 import Signup from "./screen/signup/Signup";
 import Signin from "./screen/signin/Signin";
+import Cart from "./screen/cart/Cart";
 
 import "./App.css";
 
@@ -17,6 +18,7 @@ function App() {
           <Route path="/product/:id" component={Product} />
           <Route path="/signup" component={Signup} />
           <Route path="/signin" component={Signin} />
+          <Route exact path="/cart" component={Cart} />
           <Route component={ErrorPage} />
         </Switch>
       </BrowserRouter>

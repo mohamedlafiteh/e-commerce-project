@@ -48,7 +48,7 @@ function ProductsListView(props) {
   );
 }
 
-export default React.memo(ProductsListView);
+export default ProductsListView;
 
 ProductsListView.propTypes = {
   products: PropTypes.array,

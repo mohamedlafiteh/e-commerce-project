@@ -13,7 +13,21 @@
   text-decoration: none;
   font-size: 17px;
 }
-
+.a-tag-cart {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+.a-tag-cart-item {
+  color: red;
+  text-align: center;
+  padding: 1px 10px;
+  text-decoration: none;
+  font-size: 15px;
+}
 /* Change the color of links on hover */
 .topnav .a-tag:hover {
   background-color: #ddd;

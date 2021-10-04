@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { addToCart } from "../../store/actions/cartActions";
 import { Link } from "react-router-dom";
 import Header from "../../components/header/Header";
 import "./Product.css";
@@ -10,7 +11,7 @@ class Product extends React.Component {
       <>
         <Header />
         {this.props.product ? (
-          <div className="container">
+          <div className="container" style={{ marginBottom: "30px" }}>
             <div className="active-product">
               <img
                 className="active-product__img"
@@ -26,6 +27,17 @@ class Product extends React.Component {
               <button className="active-product__button">
                 <Link to="/">Go Home</Link>
               </button>
+              <button
+                onClick={(e) =>
+                  this.props.addToCart(
+                    this.props.cartProducts,
+                    this.props.product
+                  )
+                }
+                className="cart_b"
+              >
+                Add to Cart
+              </button>
             </div>
           </div>
         ) : (
@@ -35,40 +47,31 @@ class Product extends React.Component {
     );
   }
 }
+
+Product.defaultProps = {
+  cartProducts: {},
+};
 const mapStateToProps = (state, ownProps) => {
   let id = Number(ownProps.match.params.id);
+  console.log(
+    "--------------- > list view map " + JSON.stringify(ownProps.state)
+  );
 
-  return {
-    product: state.products.products.find((product) => product.id === id),
-  };
+  if (state.cart.cart.length == 0) {
+    return {
+      product: state.products.products.find((product) => product.id === id),
+      cartProducts: state.cart.cart,
+    };
+  } else {
+    return {
+      product: state.products.products.find((product) => product.id === id),
+      cartProducts: state.cart.cart,
+      //   added: state.cart.cart
+      //     .map((item) => {
+      //       return item.id;
+      //     })
+      //     .includes(ownProps.products.id),
+    };
+  }
 };
-export default connect(mapStateToProps)(Product);
-
-// state = {
-//   activeProduct: [],
-// };
-// // componentDidMount = async () => {
-// //   const id = this.props.match.params.id;
-
-// //   const res = await fetch(`https://fakestoreapi.com/products/${id}`);
-
-// //   const data = await res.json();
-// //   this.setState({ activeProduct: data });
-// // };
-
-// componentDidMount() {
-//   const id = this.props.match.params.id;
-//   // const promiseCall = new Promise((resolve, reject) => {
-//   const fetchData = fetch(`https://fakestoreapi.com/products/${id}`)
-//     .then((response) => response.json())
-//     .then((res) => {
-//       this.setState({
-//         activeProduct: res,
-//       });
-//       // return resolve();
-//     })
-//     .catch((err) => {
-//       // reject();
-//     });
-//   // });
-// }
+export default connect(mapStateToProps, { addToCart })(Product);
