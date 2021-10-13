@@ -4,7 +4,7 @@ import SigninForm from "../forms/SigninForm";
 import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { errorMessages } from "../signup/errorMessages";
+import { errorMessages } from "../../widget/signup/errorMessages";
 
 function Signin(props) {
   const [user, setUser] = useState({ email: "", password: "" });

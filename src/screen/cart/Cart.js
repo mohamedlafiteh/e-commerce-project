@@ -50,16 +50,12 @@ export class Cart extends Component {
                   <b>Sum: </b>
                   <br />
                   <Link to="/">
-                    <button className="btn btn-primary">
-                      Return to Home page
-                    </button>
+                    <button className="btn btn-primary">Home page</button>
                   </Link>
                 </div>
               ) : (
                 <Link to="/">
-                  <button className="btn btn-primary">
-                    Return to Home page
-                  </button>
+                  <button className="btn btn-primary">Home page</button>
                 </Link>
               )}
             </div>

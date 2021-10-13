@@ -1,7 +1,7 @@
 import React, { Component, PureComponent } from "react";
 import { connect } from "react-redux";
 import ProductsList from "../products/ProductsList";
-import SearchProduct from "../search/SearchProduct";
+import SearchProduct from "../../widget/search/SearchProduct";
 import Header from "../../components/header/Header";
 import { fetchProducts } from "../../store/actions/productAction";
 import "./Home.css";

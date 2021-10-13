@@ -4,7 +4,7 @@ import Header from "../../components/header/Header";
 
 import { validateAllFormFields } from "./Validator";
 import { createUser } from "../../store/actions/userAction";
-import { stateFields } from "../constant/stateFields";
+import { stateFields } from "../../screen/constant/stateFields";
 import { resetForm } from "./resetForm";
 import "./Signup.css";
 

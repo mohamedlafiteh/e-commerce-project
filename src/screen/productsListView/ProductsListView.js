@@ -39,6 +39,7 @@ function ProductsListView(props) {
                     View product
                   </Link>
                 </button>
+                <button className="cart_b">Add to Cart</button>
               </div>
             </div>
           );

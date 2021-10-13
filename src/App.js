@@ -3,7 +3,7 @@ import Home from "./screen/home/Home";
 import Product from "./screen/product/Product";
 import ErrorPage from "./components/errorPage/ErrorPage";
 import Footer from "./components/footer/Footer";
-import Signup from "./screen/signup/Signup";
+import Signup from "./widget/signup/Signup";
 import Signin from "./screen/signin/Signin";
 import Cart from "./screen/cart/Cart";
 
